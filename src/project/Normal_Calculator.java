@@ -5,8 +5,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import templates.Frame_Setup;
@@ -18,6 +23,9 @@ public class Normal_Calculator extends Frame_Setup
     public JPanel main_panel,textarea_panel,button_panel;
     public JButton button_0,button_1,button_2,button_3,button_4,button_5,button_6,button_7,button_8,button_9,
                     button_plus,button_minus,button_mul,button_div,button_equal,button_clr,button_home,button_point,button_back,button_minus_sign;
+    private float num1,num2,result;
+    private String sign;
+    
     
     public Normal_Calculator(String page_title)
     {
@@ -28,6 +36,7 @@ public class Normal_Calculator extends Frame_Setup
         setTextAreaPanel();
         setButtonPanel();
         setButtons();
+        setActionListeners();
     }
     
     public void setContainer()
@@ -48,8 +57,9 @@ public class Normal_Calculator extends Frame_Setup
     
     public void setTextAreaPanel()
     {
-        output_textarea = new JTextArea();
+        output_textarea = new JTextArea("");
         output_textarea.setFont(new Font("Courier New",Font.BOLD,30));
+        output_textarea.setBackground(Color.WHITE);
         main_panel.add(output_textarea,BorderLayout.NORTH);
     }
     
@@ -185,6 +195,275 @@ public class Normal_Calculator extends Frame_Setup
         button_home.setBorder(null);
         button_home.setBackground(Color.white);
         button_panel.add(button_home);   
+    }
+    
+    public void setActionListeners()
+    {
+        output_textarea.addKeyListener(new KeyListener(){
+            
+           public void keyTyped(KeyEvent ke) {
+           }
+   
+            public void keyPressed(KeyEvent ke) 
+            {
+                if(ke.getKeyChar()!='0'&&ke.getKeyChar()!='1'&&ke.getKeyChar()!='2'&&ke.getKeyChar()!='3'&&ke.getKeyChar()!='4'&&ke.getKeyChar()!='5'&&ke.getKeyChar()!='6'&&ke.getKeyChar()!='7'&&ke.getKeyChar()!='8'&&ke.getKeyChar()!='9'&&ke.getKeyChar()!='.')
+                {
+                    JOptionPane.showMessageDialog(null, "PLEASE ENTER VALID CHARACTERS","ERROR",JOptionPane.ERROR_MESSAGE);
+                    output_textarea.setText("");
+                } 
+                
+            }
+            public void keyReleased(KeyEvent ke) {
+            }
+        
+        });
+        
+        button_minus_sign.addActionListener(new ActionListener() {
+            
+            public void actionPerformed(ActionEvent e)
+            {
+                if(!output_textarea.getText().contains("-"))
+                {
+                    if(output_textarea.getText().contains("."))
+                    {
+                        button_point.setEnabled(false);
+                        output_textarea.setText("-"+output_textarea.getText());
+                    }   
+                    else
+                    {
+                        output_textarea.setText("-"+output_textarea.getText());
+                        button_point.setEnabled(true);
+                    } 
+                }
+                
+            }     
+        });
+        
+        
+        button_clr.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                   output_textarea.setText("");
+                   button_point.setEnabled(true);
+            }     
+        });
+        
+        button_back.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 String str = output_textarea.getText();
+                 try
+                 {
+                     output_textarea.setText(""+str.substring(0, (str.length()-1)));
+                     char temp = str.charAt(str.length()-1);
+                     if(temp=='.')
+                     {
+                         button_point.setEnabled(true);
+                     }
+                 }catch(Exception ex)
+                 {
+                    JOptionPane.showMessageDialog(null, "NO VALUES LEFT","ERROR",JOptionPane.ERROR_MESSAGE);
+                 }
+            } 
+        });
+        
+        
+        button_0.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                output_textarea.append("0");
+            } 
+        });
+        
+        button_1.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 output_textarea.append("1");
+            } 
+        });
+        
+        button_2.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 output_textarea.append("2");
+            } 
+        });
+        
+        button_3.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 output_textarea.append("3");
+                 
+            } 
+        });
+        
+        button_4.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 output_textarea.append("4");
+            } 
+        });
+        
+        button_5.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 output_textarea.append("5");
+            } 
+        });
+        
+        button_6.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 output_textarea.append("6");
+            } 
+        });
+        
+        button_7.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 output_textarea.append("7");
+            } 
+        });
+        
+        button_8.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                output_textarea.append("8");
+            } 
+        });
+        
+        button_9.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 output_textarea.append("9");
+            } 
+        });
+        
+        button_point.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 output_textarea.append(".");
+                 button_point.setEnabled(false);
+            } 
+        });
+        
+        button_plus.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 try{
+                 sign="+";
+                 num1 = Float.valueOf(output_textarea.getText());
+                 output_textarea.setText(""); 
+                 button_point.setEnabled(true);}catch(Exception ex)
+                 {
+                    JOptionPane.showMessageDialog(null, "INVALID INPUT","ERROR",JOptionPane.ERROR_MESSAGE);
+                 }
+            } 
+        });
+        
+        button_minus.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 try{
+                 sign="-";
+                 num1 = Float.valueOf(output_textarea.getText());
+                 output_textarea.setText("");
+                 button_point.setEnabled(true);}catch(Exception ex)
+                 {
+                    JOptionPane.showMessageDialog(null, "INVALID INPUT","ERROR",JOptionPane.ERROR_MESSAGE);
+                 }    
+                 
+            } 
+        });
+        
+        button_mul.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 try{
+                 sign="*";
+                 num1 = Float.valueOf(output_textarea.getText());
+                 output_textarea.setText("");
+                 button_point.setEnabled(true);}catch(Exception ex)
+                 {
+                    JOptionPane.showMessageDialog(null, "INVALID INPUT","ERROR",JOptionPane.ERROR_MESSAGE);
+                 }    
+                 
+            } 
+        });
+        
+        button_div.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                 try{
+                 sign="/";
+                 num1 = Float.valueOf(output_textarea.getText());
+                 output_textarea.setText("");
+                 button_point.setEnabled(true);}catch(Exception ex)
+                 {
+                    JOptionPane.showMessageDialog(null, "INVALID INPUT","ERROR",JOptionPane.ERROR_MESSAGE);
+                 }        
+            } 
+        });
+        
+        button_equal.addActionListener(new ActionListener(){
+        
+            public void actionPerformed(ActionEvent e)
+            {
+                try{
+                num2 = Float.valueOf(output_textarea.getText());
+                 
+                if("+".equals(sign))
+                {
+                    result=(float)(num1+num2);
+                }
+                if("-".equals(sign))
+                {
+                    result=(float)(num1-num2);
+                }
+                if("*".equals(sign))
+                {
+                    result=(float)(num1*num2);
+                }
+                if("/".equals(sign))
+                {
+                    result=(float)(num1/num2);
+                }
+                
+                output_textarea.setText(""+result); 
+                button_point.setEnabled(false);
+                }catch(Exception ex)
+                {
+                     JOptionPane.showMessageDialog(null, "INVALID INPUT","ERROR",JOptionPane.ERROR_MESSAGE);
+                }
+            } 
+        });
+        
+        button_home.addActionListener(new ActionListener(){
+            
+            public void actionPerformed(ActionEvent e)
+            {
+                dispose();
+                Home frame = new Home("Home");
+                frame.setVisible(true);
+            }
+        }); 
     }
     
     public static void main(String[] args) 
