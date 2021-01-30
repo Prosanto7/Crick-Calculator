@@ -39,6 +39,7 @@ public class Frame_Setup extends JFrame
     public ImageIcon button_refresh_icon = new ImageIcon(getClass().getResource("/icons/button_refresh.png"));
     public ImageIcon normal_mode_icon = new ImageIcon(getClass().getResource("/icons/button_normal_mode.png"));
     public ImageIcon cricket_mode_icon = new ImageIcon(getClass().getResource("/icons/button_cricket_mode.png"));
+    public ImageIcon button_extra_icon = new ImageIcon(getClass().getResource("/icons/button_extra.png"));
 
     
     public Frame_Setup(String page_title)

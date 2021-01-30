@@ -20,7 +20,7 @@ import templates.Frame_Setup;
 public class Normal_Calculator extends Frame_Setup
 {
     public JTextArea output_textarea;
-    public JPanel main_panel,textarea_panel,button_panel;
+    public JPanel main_panel,button_panel;
     public JButton button_0,button_1,button_2,button_3,button_4,button_5,button_6,button_7,button_8,button_9,
                     button_plus,button_minus,button_mul,button_div,button_equal,button_clr,button_home,button_point,button_back,button_minus_sign;
     private float num1,num2,result;
@@ -33,7 +33,7 @@ public class Normal_Calculator extends Frame_Setup
         setContainer();
         setMainPanel();
         setNullLabel();    
-        setTextAreaPanel();
+        setTextArea();
         setButtonPanel();
         setButtons();
         setActionListeners();
@@ -55,7 +55,7 @@ public class Normal_Calculator extends Frame_Setup
         container.add(main_panel,BorderLayout.CENTER);
     }
     
-    public void setTextAreaPanel()
+    public void setTextArea()
     {
         output_textarea = new JTextArea("");
         output_textarea.setFont(new Font("Courier New",Font.BOLD,30));
@@ -466,9 +466,9 @@ public class Normal_Calculator extends Frame_Setup
         }); 
     }
     
-    public static void main(String[] args) 
+    /*public static void main(String[] args) 
     {
-        Normal_Calculator frame = new Normal_Calculator("Normal Mode");
+        Normal_Calculator frame = new Normal_Calculator("Normal Mode");     //Can Be Used For Testing
         frame.setVisible(true);
-    }
+    }*/
 }
