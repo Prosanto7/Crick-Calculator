@@ -41,18 +41,19 @@ public class Frame_Setup extends JFrame
     public ImageIcon cricket_mode_icon = new ImageIcon(getClass().getResource("/icons/button_cricket_mode.png"));
 
     
-    public Frame_Setup()
+    public Frame_Setup(String page_title)
     {
-        setFrame();
+        setFrame(page_title);
         setContainer();
         setAppIcon();
     }
     
-    public void setFrame()
+    public void setFrame(String page_title)
     {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(450, 500);
         this.setLocationRelativeTo(null);
+        this.setTitle(page_title);
     }
     
     public void setContainer()
