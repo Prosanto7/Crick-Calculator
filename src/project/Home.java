@@ -89,7 +89,7 @@ public class Home extends Frame_Setup
             public void actionPerformed(ActionEvent e)
             {
                 dispose();
-                Cricket_Calculator frame = new Cricket_Calculator("Cricket Mode");
+                Cricket_Calculator frame = new Cricket_Calculator("Cricket Mode","T20 Match");
                 frame.setVisible(true);
             }
         

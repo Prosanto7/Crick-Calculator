@@ -18,22 +18,24 @@ import project.Home;
 public class Cricket_Mode extends Frame_Setup
 {
     public JPanel main_panel,textfield_panel,button_panel;
+    public JLabel match_type_label;
     public JTextField runs_textfield,wickets_textfield,overs_textfield,extra_textfiled;
     public JButton button_0,button_1,button_2,button_3,button_4,button_6,button_wicket,button_wide_ball,button_no_ball,button_home,button_refresh,button_extra;    
-    public int runs=0,wickets=0,balls=0,extras=0;
+    public int runs=0,wickets=0,balls=0,extras=0,overs,overlimit,session,daycount;
     
     
-    public Cricket_Mode(String page_title) 
+    public Cricket_Mode(String page_title,String match_type) 
     {
         super(page_title);      //Here we are using super key to use parent class's constructor 
         setContainer();
         setMainPanel();
-        setNullLabel();
+        setNullLabel(match_type);
         setTextFieldPanel();
         setButtonPanel();
         setTextFields();
         setButtons();
-        setActionListeners();
+        setMatchTypeLabel(match_type);
+        setActionListeners(match_type);
     }
     
     public void setContainer()
@@ -52,16 +54,18 @@ public class Cricket_Mode extends Frame_Setup
         container.add(main_panel,BorderLayout.CENTER);
     }
     
-    public void setNullLabel()
-    {
+    public void setNullLabel(String match_type)
+    {   
+        match_type_label = new JLabel(match_type);
+        match_type_label.setFont(new Font("Courier New",Font.BOLD,25));
+        match_type_label.setHorizontalAlignment(JLabel.CENTER);
+        container.add(match_type_label,BorderLayout.NORTH);
+        null_label = new JLabel();
+        container.add(null_label,BorderLayout.SOUTH);
         null_label = new JLabel();
         container.add(null_label,BorderLayout.EAST);
         null_label = new JLabel();
         container.add(null_label,BorderLayout.WEST);
-        null_label = new JLabel();
-        container.add(null_label,BorderLayout.NORTH);
-        null_label = new JLabel();
-        container.add(null_label,BorderLayout.SOUTH);
     }
     
     public void setTextFieldPanel()
@@ -166,8 +170,21 @@ public class Cricket_Mode extends Frame_Setup
         button_panel.add(button_extra);      
     }
     
-    public void setActionListeners()
+    public void setActionListeners(String match_type)
     {
+        if(match_type.equals("One-Day Match"))
+        {
+            overlimit = 50;
+        }
+        if(match_type.equals("T20 Match"))
+        {
+            overlimit = 20;
+        }
+        else
+        {
+            overlimit = 450;
+        }
+        
         button_home.addActionListener(new ActionListener(){
             
             public void actionPerformed(ActionEvent e)
@@ -182,7 +199,9 @@ public class Cricket_Mode extends Frame_Setup
             
             public void actionPerformed(ActionEvent e)
             {
-               if((int)(balls/6)<10) 
+               setMatchTypeLabel(match_type);
+               
+               if((int)(balls/6)<overlimit) 
                {
                runs = runs + 0;
                balls = balls +1;
@@ -201,7 +220,9 @@ public class Cricket_Mode extends Frame_Setup
             
             public void actionPerformed(ActionEvent e)
             {
-               if((int)(balls/6)<10) 
+               setMatchTypeLabel(match_type); 
+                
+               if((int)(balls/6)<overlimit) 
                {
                runs = runs + 1;
                balls = balls +1;
@@ -220,7 +241,9 @@ public class Cricket_Mode extends Frame_Setup
             
             public void actionPerformed(ActionEvent e)
             {
-               if((int)(balls/6)<10) 
+               setMatchTypeLabel(match_type); 
+                
+               if((int)(balls/6)<overlimit) 
                {
                runs = runs + 2;
                balls = balls +1;
@@ -239,7 +262,9 @@ public class Cricket_Mode extends Frame_Setup
             
             public void actionPerformed(ActionEvent e)
             {
-               if((int)(balls/6)<10) 
+               setMatchTypeLabel(match_type); 
+                
+               if((int)(balls/6)<overlimit) 
                {
                runs = runs + 3;
                balls = balls +1;
@@ -258,7 +283,9 @@ public class Cricket_Mode extends Frame_Setup
             
             public void actionPerformed(ActionEvent e)
             {
-               if((int)(balls/6)<10) 
+               setMatchTypeLabel(match_type); 
+                
+               if((int)(balls/6)<overlimit) 
                {
                runs = runs + 4;
                balls = balls +1;
@@ -277,7 +304,9 @@ public class Cricket_Mode extends Frame_Setup
             
             public void actionPerformed(ActionEvent e)
             {
-               if((int)(balls/6)<10) 
+               setMatchTypeLabel(match_type);
+               
+               if((int)(balls/6)<overlimit) 
                {
                runs = runs + 6;
                balls = balls +1;
@@ -296,7 +325,9 @@ public class Cricket_Mode extends Frame_Setup
             
             public void actionPerformed(ActionEvent e)
             {
-               if((int)(balls/6)<10) 
+               setMatchTypeLabel(match_type);
+                
+               if((int)(balls/6)<overlimit) 
                {
                     if(wickets<9)
                     {
@@ -325,12 +356,14 @@ public class Cricket_Mode extends Frame_Setup
         button_wide_ball.addActionListener(new ActionListener(){
             
             public void actionPerformed(ActionEvent e)
-            {    
-              if((int)(balls/6)<10) 
+            { 
+              setMatchTypeLabel(match_type);
+                
+              if((int)(balls/6)<overlimit) 
               {  
                     try{
                     int temp = Integer.valueOf(JOptionPane.showInputDialog(null, "Extra Runs On That Ball"));
-                    runs = runs + 1 +temp;
+                    runs = runs + 1 + temp;
                     runs_textfield.setText(""+runs); }catch(Exception ex){}
               }
               else
@@ -346,11 +379,13 @@ public class Cricket_Mode extends Frame_Setup
             
             public void actionPerformed(ActionEvent e)
             {
-              if((int)(balls/6)<10) 
+              setMatchTypeLabel(match_type);
+              
+              if((int)(balls/6)<overlimit) 
               {
                 try{  
                 int temp = Integer.valueOf(JOptionPane.showInputDialog(null, "Extra Runs On That Ball"));
-                runs = runs + 1 +temp;
+                runs = runs + 1 + temp;
                 runs_textfield.setText(""+runs);   }catch(Exception ex){}
               }
               else
@@ -364,7 +399,8 @@ public class Cricket_Mode extends Frame_Setup
         button_refresh.addActionListener(new ActionListener(){
             
             public void actionPerformed(ActionEvent e)
-            {  
+            {
+                setMatchTypeLabel(match_type);
                 button_0.setEnabled(true);
                 button_1.setEnabled(true);
                 button_2.setEnabled(true);
@@ -380,6 +416,29 @@ public class Cricket_Mode extends Frame_Setup
                 overs_textfield.setText((int)(balls/6)+" . "+balls%6);              
             }
         });
+    }
+    
+    public void setMatchTypeLabel(String match_type)
+    {
+        if(match_type.equals("Test Match"))
+        {
+            overs = (int)balls/6;
+            session = overs/30;
+            daycount = 1+ (int) overs/90;
+            
+            if((session%3)==0)
+            {
+                match_type_label.setText("Day "+daycount+", Session 1(Morning)");
+            }
+            else if((session%3)==1)
+            {
+                match_type_label.setText("Day "+daycount+", Session 2(Afternoon)");
+            }
+            else if((session%3)==2)
+            {
+                match_type_label.setText("Day "+daycount+", Session 3(Evening)");
+            }   
+        }
     }
     
     public void All_Disable()
@@ -398,7 +457,7 @@ public class Cricket_Mode extends Frame_Setup
     
     public static void main(String[] args)
     {
-        Cricket_Mode frame = new Cricket_Mode("Cricket Mode");
+        Cricket_Mode frame = new Cricket_Mode("Cricket Mode","Test Match");
         frame.setVisible(true);
     }
 }
