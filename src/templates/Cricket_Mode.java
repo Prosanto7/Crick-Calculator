@@ -614,9 +614,9 @@ public class Cricket_Mode extends Frame_Setup
         button_wicket.setEnabled(false);
     }
     
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         Cricket_Mode frame = new Cricket_Mode("Cricket Mode","One Day Match");  //Can Be Used For Testing
         frame.setVisible(true);
-    }
+    }*/
 }

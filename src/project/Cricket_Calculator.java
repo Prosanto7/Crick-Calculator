@@ -127,9 +127,9 @@ public class Cricket_Calculator extends Frame_Setup
         container.add(null_label,BorderLayout.SOUTH);
     }
     
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         Cricket_Calculator frame = new Cricket_Calculator("Cricket Mode");
         frame.setVisible(true);
-    }
+    }*/
 }
