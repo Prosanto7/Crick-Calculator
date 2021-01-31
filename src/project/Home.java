@@ -33,7 +33,7 @@ public class Home extends Frame_Setup
         //Method Overriding Contept Used
         super.setContainer();  //Here we get setContainer() of parrent class
         container.setLayout(new BorderLayout(100,100));  //100 is Horizontal gap and 100 is Vertical Gap
-        //container.setBackground(Color.white);
+        container.setBackground(Color.white);
     }
     
     public void setButtonPanel()
@@ -89,7 +89,7 @@ public class Home extends Frame_Setup
             public void actionPerformed(ActionEvent e)
             {
                 dispose();
-                Cricket_Calculator frame = new Cricket_Calculator("Cricket Mode","T20 Match");
+                Cricket_Calculator frame = new Cricket_Calculator("Cricket Mode");
                 frame.setVisible(true);
             }
         

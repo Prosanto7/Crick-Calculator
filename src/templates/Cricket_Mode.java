@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import project.Home;
 
@@ -19,7 +20,7 @@ public class Cricket_Mode extends Frame_Setup
 {
     public JPanel main_panel,textfield_panel,button_panel;
     public JLabel match_type_label;
-    public JTextField runs_textfield,wickets_textfield,overs_textfield,extra_textfiled;
+    public JTextArea runs_textfield,wickets_textfield,overs_textfield,extra_textfiled;
     public JButton button_0,button_1,button_2,button_3,button_4,button_6,button_wicket,button_wide_ball,button_no_ball,button_home,button_refresh,button_extra;    
     public int runs=0,wickets=0,balls=0,extras=0,overs,overlimit,session,daycount;
     
@@ -57,7 +58,7 @@ public class Cricket_Mode extends Frame_Setup
     public void setNullLabel(String match_type)
     {   
         match_type_label = new JLabel(match_type);
-        match_type_label.setFont(new Font("Courier New",Font.BOLD,25));
+        match_type_label.setFont(new Font("Courier New",Font.BOLD,28));
         match_type_label.setHorizontalAlignment(JLabel.CENTER);
         container.add(match_type_label,BorderLayout.NORTH);
         null_label = new JLabel();
@@ -86,23 +87,23 @@ public class Cricket_Mode extends Frame_Setup
     
     public void setTextFields()
     {
-        runs_textfield = new JTextField("Run");
-        runs_textfield.setFont(new Font("Courier New",Font.BOLD,25));
+        runs_textfield = new JTextArea("Run");
+        runs_textfield.setFont(new Font("Courier New",Font.BOLD,30));
         runs_textfield.setEditable(false);
         textfield_panel.add(runs_textfield);
         
-        wickets_textfield = new JTextField("Wicket");
-        wickets_textfield.setFont(new Font("Courier New",Font.BOLD,25));
+        wickets_textfield = new JTextArea("W");
+        wickets_textfield.setFont(new Font("Courier New",Font.BOLD,30));
         wickets_textfield.setEditable(false);
         textfield_panel.add(wickets_textfield);
         
-        overs_textfield = new JTextField("Over");
-        overs_textfield.setFont(new Font("Courier New",Font.BOLD,25));
+        overs_textfield = new JTextArea("Over");
+        overs_textfield.setFont(new Font("Courier New",Font.BOLD,30));
         overs_textfield.setEditable(false);
         textfield_panel.add(overs_textfield);
         
-        extra_textfiled = new JTextField("Extra");
-        extra_textfiled.setFont(new Font("Courier New",Font.BOLD,25));
+        extra_textfiled = new JTextArea("Extra");
+        extra_textfiled.setFont(new Font("Courier New",Font.BOLD,28));
         extra_textfiled.setEditable(false);
         textfield_panel.add(extra_textfiled);
     }
@@ -172,7 +173,7 @@ public class Cricket_Mode extends Frame_Setup
     
     public void setActionListeners(String match_type)
     {
-        if(match_type.equals("One-Day Match"))
+        if(match_type.equals("One Day Match"))
         {
             overlimit = 50;
         }
@@ -180,7 +181,7 @@ public class Cricket_Mode extends Frame_Setup
         {
             overlimit = 20;
         }
-        else
+        if(match_type.equals("Test Match"))
         {
             overlimit = 450;
         }
@@ -457,7 +458,7 @@ public class Cricket_Mode extends Frame_Setup
     
     public static void main(String[] args)
     {
-        Cricket_Mode frame = new Cricket_Mode("Cricket Mode","Test Match");
+        Cricket_Mode frame = new Cricket_Mode("Cricket Mode","One Day Match");  //Can Be Used For Testing
         frame.setVisible(true);
     }
 }

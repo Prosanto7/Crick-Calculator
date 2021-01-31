@@ -40,6 +40,9 @@ public class Frame_Setup extends JFrame
     public ImageIcon normal_mode_icon = new ImageIcon(getClass().getResource("/icons/button_normal_mode.png"));
     public ImageIcon cricket_mode_icon = new ImageIcon(getClass().getResource("/icons/button_cricket_mode.png"));
     public ImageIcon button_extra_icon = new ImageIcon(getClass().getResource("/icons/button_extra.png"));
+    public ImageIcon one_day_match_button_icon = new ImageIcon(getClass().getResource("/icons/one_day_match_button.png"));
+    public ImageIcon t20_match_button_icon = new ImageIcon(getClass().getResource("/icons/t20_match_button.png"));
+    public ImageIcon test_match_button_icon = new ImageIcon(getClass().getResource("/icons/test_match_button.png"));
 
     
     public Frame_Setup(String page_title)
