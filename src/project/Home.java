@@ -40,7 +40,7 @@ public class Home extends Frame_Setup
     {
         button_panel = new JPanel();
         button_panel.setLayout(new GridLayout(2,1));
-        button_panel.setBackground(Color.WHITE);
+        button_panel.setBackground(Color.white);
         container.add(button_panel,BorderLayout.CENTER);
         setNullLabel();
     }

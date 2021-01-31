@@ -56,7 +56,7 @@ public class Frame_Setup extends JFrame
     {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(450, 500);
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null); //Set the frame in middle position
         this.setTitle(page_title);
     }
     
@@ -75,7 +75,7 @@ public class Frame_Setup extends JFrame
     
     /*public static void main(String[] args)
     {
-        Frame_Setup frame = new Frame_Setup();      //Can Be Used For Testing Frame Setup
+        Frame_Setup frame = new Frame_Setup("Prosanto");      //Can Be Used For Testing Frame Setup
         frame.setVisible(true);
     }*/
 }

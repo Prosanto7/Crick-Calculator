@@ -386,7 +386,7 @@ public class Cricket_Mode extends Frame_Setup
         {
             overs = (int)balls/6;
             session = overs/30;
-            daycount = 1+ (int) overs/90;
+            daycount = 1 + (int) overs/90;
             
             if((session%3)==0)
             {
@@ -540,6 +540,7 @@ public class Cricket_Mode extends Frame_Setup
                 extras = extras  + value;
                 byes = byes + value;
                 runs = runs + value;
+                balls = balls + 1;
                 setAllValues();
                 choice_frame.dispose(); 
                 }catch(Exception ex) 
@@ -579,6 +580,7 @@ public class Cricket_Mode extends Frame_Setup
                 extras = extras  + value;
                 penalty = penalty + value;
                 runs = runs + value;
+                balls = balls + 1;
                 setAllValues();
                 choice_frame.dispose(); 
                 }catch(Exception ex) 
@@ -616,7 +618,7 @@ public class Cricket_Mode extends Frame_Setup
     
     /*public static void main(String[] args)
     {
-        Cricket_Mode frame = new Cricket_Mode("Cricket Mode","One Day Match");  //Can Be Used For Testing
+        Cricket_Mode frame = new Cricket_Mode("Cricket Mode","T20 Match");  //Can Be Used For Testing
         frame.setVisible(true);
     }*/
 }
