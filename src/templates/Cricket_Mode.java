@@ -7,25 +7,30 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import project.Home;
 
 
 public class Cricket_Mode extends Frame_Setup
 {
     public JPanel main_panel,textfield_panel,button_panel;
-    public JLabel match_type_label;
+    public JLabel match_type_label,run_rate_extra_label;
     public JTextArea runs_textarea,wickets_textarea,overs_textarea,extra_textarea;
-    public JButton button_0,button_1,button_2,button_3,button_4,button_6,button_wicket,button_wide_ball,button_no_ball,button_home,button_refresh,button_extra;    
-    public int runs=0,wickets=0,balls=0,extras=0,overs,overlimit,session,daycount;
+    public JButton button_0,button_1,button_2,button_3,button_4,button_6,button_wicket,button_home,button_refresh,button_extra,null_button;    
+    public int runs=0,wickets=0,balls=0,extras=0,no_balls=0,wide_balls=0,byes=0,leg_byes=0,penalty=0,overs,overlimit,session,daycount;
     
     
     public Cricket_Mode(String page_title,String match_type) 
     {
+        
         super(page_title);      //Here we are using super key to use parent class's constructor 
         setContainer();
         setMainPanel();
@@ -44,6 +49,8 @@ public class Cricket_Mode extends Frame_Setup
         super.setContainer();  //Here we get setContainer() of parrent class
         container.setLayout(new BorderLayout(50,50));   //50 is Horizontal gap and 50 is Vertical Gap
         container.setBackground(Color.WHITE);
+        this.setSize(650,500);   //Here we are changing our frame size according to out use
+                                 //This frame size is different from the size of Frame_Setup class   
     }
     
     public void setMainPanel()
@@ -57,15 +64,17 @@ public class Cricket_Mode extends Frame_Setup
     public void setNullLabel(String match_type)
     {   
         match_type_label = new JLabel(match_type);
-        match_type_label.setFont(new Font("Courier New",Font.BOLD,28));
+        match_type_label.setFont(new Font("Courier New",Font.BOLD,25));
         match_type_label.setHorizontalAlignment(JLabel.CENTER);
         container.add(match_type_label,BorderLayout.NORTH);
         null_label = new JLabel();
-        container.add(null_label,BorderLayout.SOUTH);
+        container.add(null_label,BorderLayout.WEST);
         null_label = new JLabel();
         container.add(null_label,BorderLayout.EAST);
-        null_label = new JLabel();
-        container.add(null_label,BorderLayout.WEST);
+        run_rate_extra_label = new JLabel("Run Rate & Extra");
+        run_rate_extra_label.setFont(new Font("Courier New",Font.BOLD,20));
+        run_rate_extra_label.setHorizontalAlignment(JLabel.CENTER);
+        container.add(run_rate_extra_label,BorderLayout.SOUTH);
     }
     
     public void setTextFieldPanel()
@@ -139,35 +148,31 @@ public class Cricket_Mode extends Frame_Setup
         button_6.setBackground(Color.white);
         button_panel.add(button_6);
         
-        button_wide_ball = new JButton(button_wide_ball_icon);
-        button_wide_ball.setBorder(null);
-        button_wide_ball.setBackground(Color.white);
-        button_panel.add(button_wide_ball);
-   
-        button_no_ball = new JButton(button_no_ball_icon);
-        button_no_ball.setBorder(null);
-        button_no_ball.setBackground(Color.white);
-        button_panel.add(button_no_ball);
-        
         button_wicket = new JButton(button_wicket_icon);
         button_wicket.setBorder(null);
         button_wicket.setBackground(Color.white);
         button_panel.add(button_wicket);
         
-        button_home = new JButton(button_home_icon);
-        button_home.setBorder(null);
-        button_home.setBackground(Color.white);
-        button_panel.add(button_home);
+        button_extra = new JButton(button_extra_icon);
+        button_extra.setBorder(null);
+        button_extra.setBackground(Color.white);
+        button_panel.add(button_extra); 
         
         button_refresh = new JButton(button_refresh_icon);
         button_refresh.setBorder(null);
         button_refresh.setBackground(Color.white);
         button_panel.add(button_refresh);
        
-        button_extra = new JButton(button_extra_icon);
-        button_extra.setBorder(null);
-        button_extra.setBackground(Color.white);
-        button_panel.add(button_extra);      
+        null_button = new JButton();
+        null_button.setBorder(null);
+        null_button.setBackground(Color.white);
+        null_button.setEnabled(false);
+        button_panel.add(null_button);
+        
+        button_home = new JButton(button_home_icon);
+        button_home.setBorder(null);
+        button_home.setBackground(Color.white);
+        button_panel.add(button_home);
     }
     
     public void setActionListeners(String match_type)
@@ -205,8 +210,7 @@ public class Cricket_Mode extends Frame_Setup
                {
                runs = runs + 0;
                balls = balls +1;
-               runs_textarea.setText(""+runs);
-               overs_textarea.setText((int)(balls/6)+"."+balls%6);
+               setAllValues();
                }
                else
                {
@@ -226,8 +230,7 @@ public class Cricket_Mode extends Frame_Setup
                {
                runs = runs + 1;
                balls = balls +1;
-               runs_textarea.setText(""+runs);
-               overs_textarea.setText((int)(balls/6)+"."+balls%6);
+               setAllValues();
                }
                else
                {
@@ -247,8 +250,7 @@ public class Cricket_Mode extends Frame_Setup
                {
                runs = runs + 2;
                balls = balls +1;
-               runs_textarea.setText(""+runs);
-               overs_textarea.setText((int)(balls/6)+"."+balls%6);
+               setAllValues();
                }
                else
                {
@@ -268,8 +270,7 @@ public class Cricket_Mode extends Frame_Setup
                {
                runs = runs + 3;
                balls = balls +1;
-               runs_textarea.setText(""+runs);
-               overs_textarea.setText((int)(balls/6)+"."+balls%6);
+               setAllValues();
                }
                else
                {
@@ -289,8 +290,7 @@ public class Cricket_Mode extends Frame_Setup
                {
                runs = runs + 4;
                balls = balls +1;
-               runs_textarea.setText(""+runs);
-               overs_textarea.setText((int)(balls/6)+"."+balls%6);
+               setAllValues();
                }
                else
                {
@@ -310,8 +310,7 @@ public class Cricket_Mode extends Frame_Setup
                {
                runs = runs + 6;
                balls = balls +1;
-               runs_textarea.setText(""+runs);
-               overs_textarea.setText((int)(balls/6)+"."+balls%6);
+               setAllValues();
                }
                else
                {
@@ -333,8 +332,7 @@ public class Cricket_Mode extends Frame_Setup
                     {
                       wickets = wickets + 1;
                       balls = balls +1;
-                      wickets_textarea.setText("/"+wickets);
-                      overs_textarea.setText((int)(balls/6)+"."+balls%6);
+                      setAllValues();
                     }
                     else
                     {
@@ -353,46 +351,11 @@ public class Cricket_Mode extends Frame_Setup
             }
         });
         
-        button_wide_ball.addActionListener(new ActionListener(){
-            
-            public void actionPerformed(ActionEvent e)
-            { 
-              setMatchTypeLabel(match_type);
-                
-              if((int)(balls/6)<overlimit) 
-              {  
-                    try{
-                    int temp = Integer.valueOf(JOptionPane.showInputDialog(null, "Extra Runs On That Ball"));
-                    runs = runs + 1 + temp;
-                    runs_textarea.setText(""+runs); }catch(Exception ex){}
-              }
-              else
-              {
-                 JOptionPane.showMessageDialog(null, "NO BALLS LEFT","ERROR",JOptionPane.ERROR_MESSAGE);
-                 All_Disable();
-              }
-              
-            }
-        });
-        
-        button_no_ball.addActionListener(new ActionListener(){
+        button_extra.addActionListener(new ActionListener(){
             
             public void actionPerformed(ActionEvent e)
             {
-              setMatchTypeLabel(match_type);
-              
-              if((int)(balls/6)<overlimit) 
-              {
-                try{  
-                int temp = Integer.valueOf(JOptionPane.showInputDialog(null, "Extra Runs On That Ball"));
-                runs = runs + 1 + temp;
-                runs_textarea.setText(""+runs);   }catch(Exception ex){}
-              }
-              else
-              {
-                 JOptionPane.showMessageDialog(null, "NO BALLS LEFT","ERROR",JOptionPane.ERROR_MESSAGE);
-                 All_Disable();
-              }
+                setChoiceFrame(); 
             }
         });
         
@@ -407,13 +370,12 @@ public class Cricket_Mode extends Frame_Setup
                 button_3.setEnabled(true);
                 button_4.setEnabled(true);
                 button_6.setEnabled(true);
-                button_wide_ball.setEnabled(true);
-                button_no_ball.setEnabled(true);
+                button_extra.setEnabled(true);
                 button_wicket.setEnabled(true);
-                runs=0;wickets=0;balls=0;
-                runs_textarea.setText(""+runs);
-                wickets_textarea.setText("/"+wickets);
-                overs_textarea.setText((int)(balls/6)+"."+balls%6);              
+                runs=0;wickets=0;balls=0;extras=0;no_balls=0;wide_balls=0;byes=0;leg_byes=0;penalty=0;
+                setAllValues(); 
+                run_rate_extra_label.setText("Run Rate 0.00 Extra(b "+byes+",lb "+leg_byes+",w "+wide_balls+",nb "+no_balls+",p "+penalty+")");     
+
             }
         });
     }
@@ -439,6 +401,205 @@ public class Cricket_Mode extends Frame_Setup
                 match_type_label.setText("Day "+daycount+", Session 3(Evening)");
             }   
         }
+        if(match_type.equals("One Day Match"))
+        {
+            overs = (int)balls/6;
+            
+            if(overs<10)
+            {
+                match_type_label.setText("One Day Match,Powerplay 1");
+            }
+            else if(overs<40)
+            {
+                match_type_label.setText("One Day Match,Powerplay 2");
+            }
+            else if(overs<50)
+            {
+                match_type_label.setText("One Day Match,Powerplay 3");
+            }   
+        }
+        
+        if(match_type.equals("T20 Match"))
+        {
+            overs = (int)balls/6;
+            
+            if(overs<6)
+            {
+                match_type_label.setText("T20 Match,Powerplay 1");
+            }
+            else if(overs<16)
+            {
+                match_type_label.setText("T20 Match,Powerplay 2");
+            }
+            else if(overs<20)
+            {
+                match_type_label.setText("T20 Match,Powerplay 3");
+            }   
+        }
+    }
+    
+    public void setChoiceFrame()
+    { 
+        JFrame choice_frame = new JFrame();
+        choice_frame.setVisible(true);
+        choice_frame.setSize(500, 200);
+        choice_frame.setLocationRelativeTo(null);
+        choice_frame.setLayout(new GridLayout(3,1));
+        
+        JLabel input_label = new JLabel(" Enter Extra Run Taken On That Ball");
+        input_label.setFont(new Font("Courier New",Font.BOLD,18));
+        choice_frame.add(input_label);
+        
+        JTextField input_textfield = new JTextField();
+        input_textfield.setFont(new Font("Courier New",Font.BOLD,18));
+        choice_frame.add(input_textfield);
+        
+        JPanel button_panel = new JPanel();
+        button_panel.setLayout(new GridLayout(1,5));
+        choice_frame.add(button_panel);
+        
+        JButton no_ball_button = new JButton("No Ball");
+        button_panel.add(no_ball_button);
+        
+        JButton wide_ball_button = new JButton("Wide Ball");
+        button_panel.add(wide_ball_button);
+        
+        JButton bye_button = new JButton("Bye");
+        button_panel.add(bye_button);
+        
+        JButton leg_bye_button = new JButton("Leg Bye");
+        button_panel.add(leg_bye_button);
+        
+        JButton penalty_button = new JButton("Penalty");
+        button_panel.add(penalty_button);
+        
+        input_textfield.addKeyListener(new KeyListener(){
+            
+            public void keyTyped(KeyEvent ke) {
+            }
+            
+            public void keyPressed(KeyEvent ke) {
+                
+                if(ke.getKeyChar()!='0'&&ke.getKeyChar()!='1'&&ke.getKeyChar()!='2'&&ke.getKeyChar()!='3'&&ke.getKeyChar()!='4'&&ke.getKeyChar()!='5'&&ke.getKeyChar()!='6'&&ke.getKeyChar()!='7'&&ke.getKeyChar()!='8'&&ke.getKeyChar()!='9')
+                {
+                    JOptionPane.showMessageDialog(null, "PLEASE ENTER VALID NUMBER","ERROR",JOptionPane.ERROR_MESSAGE);
+                    input_textfield.setText("");
+                } 
+            }
+          
+            public void keyReleased(KeyEvent ke) {
+            }             
+        });
+        
+        no_ball_button.addActionListener(new ActionListener(){
+            
+            public void actionPerformed(ActionEvent e)
+            {
+                try{
+                int value = Integer.parseInt(input_textfield.getText());
+                extras = extras + 1 + value;
+                byes = byes + value;
+                no_balls = no_balls + 1;
+                runs = runs + 1 + value;
+                setAllValues();
+                choice_frame.dispose();
+                }catch(Exception ex) 
+                {
+                    JOptionPane.showMessageDialog(null, "PLEASE ENTER VALID NUMBER","ERROR",JOptionPane.ERROR_MESSAGE);
+                    input_textfield.setText("");
+                }
+            }
+        });
+        
+        wide_ball_button.addActionListener(new ActionListener(){
+            
+            public void actionPerformed(ActionEvent e)
+            {
+                try{
+                int value = Integer.parseInt(input_textfield.getText());
+                extras = extras + 1 + value;
+                byes = byes + value;
+                wide_balls = wide_balls + 1;
+                runs = runs + 1 + value;
+                setAllValues();
+                choice_frame.dispose(); 
+                }catch(Exception ex) 
+                {
+                    JOptionPane.showMessageDialog(null, "PLEASE ENTER VALID NUMBER","ERROR",JOptionPane.ERROR_MESSAGE);
+                    input_textfield.setText("");
+                }
+            }
+        });
+        
+        bye_button.addActionListener(new ActionListener(){
+            
+            public void actionPerformed(ActionEvent e)
+            {
+                try{
+                int value = Integer.parseInt(input_textfield.getText());
+                extras = extras  + value;
+                byes = byes + value;
+                runs = runs + value;
+                setAllValues();
+                choice_frame.dispose(); 
+                }catch(Exception ex) 
+                {
+                    JOptionPane.showMessageDialog(null, "PLEASE ENTER VALID NUMBER","ERROR",JOptionPane.ERROR_MESSAGE);
+                    input_textfield.setText("");
+                }
+            }
+        });
+        
+        leg_bye_button.addActionListener(new ActionListener(){
+            
+            public void actionPerformed(ActionEvent e)
+            {
+                try{
+                int value = Integer.parseInt(input_textfield.getText());
+                extras = extras  + value;
+                leg_byes = leg_byes + value;
+                runs = runs + value;
+                balls = balls + 1;
+                setAllValues();
+                choice_frame.dispose(); 
+                }catch(Exception ex) 
+                {
+                    JOptionPane.showMessageDialog(null, "PLEASE ENTER VALID NUMBER","ERROR",JOptionPane.ERROR_MESSAGE);
+                    input_textfield.setText("");
+                }
+            }
+        });
+        
+        penalty_button.addActionListener(new ActionListener(){
+            
+            public void actionPerformed(ActionEvent e)
+            {
+                try{
+                int value = Integer.parseInt(input_textfield.getText());
+                extras = extras  + value;
+                penalty = penalty + value;
+                runs = runs + value;
+                setAllValues();
+                choice_frame.dispose(); 
+                }catch(Exception ex) 
+                {
+                    JOptionPane.showMessageDialog(null, "PLEASE ENTER VALID NUMBER","ERROR",JOptionPane.ERROR_MESSAGE);
+                    input_textfield.setText("");
+                }
+            }
+        });
+    }
+    
+    public void setAllValues()
+    {
+        float overs = (float)balls/6;
+        float run_rate = runs / overs;
+       
+        runs_textarea.setText("Run "+runs);
+        overs_textarea.setText((int)(balls/6)+"."+balls%6);
+        wickets_textarea.setText("/"+wickets);
+        extra_textarea.setText("Ext "+extras);
+        run_rate_extra_label.setText("Run Rate "+String.format("%.2f", run_rate)+" Extra(b "+byes+",lb "+leg_byes+",w "+wide_balls+",nb "+no_balls+",p "+penalty+")");     
     }
     
     public void All_Disable()
@@ -449,11 +610,9 @@ public class Cricket_Mode extends Frame_Setup
         button_3.setEnabled(false);
         button_4.setEnabled(false);
         button_6.setEnabled(false);
-        button_wide_ball.setEnabled(false);
-        button_no_ball.setEnabled(false);
+        button_extra.setEnabled(false);
         button_wicket.setEnabled(false);
     }
-    
     
     public static void main(String[] args)
     {
