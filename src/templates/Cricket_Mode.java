@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import project.Home;
 
 
@@ -20,7 +19,7 @@ public class Cricket_Mode extends Frame_Setup
 {
     public JPanel main_panel,textfield_panel,button_panel;
     public JLabel match_type_label;
-    public JTextArea runs_textfield,wickets_textfield,overs_textfield,extra_textfiled;
+    public JTextArea runs_textarea,wickets_textarea,overs_textarea,extra_textarea;
     public JButton button_0,button_1,button_2,button_3,button_4,button_6,button_wicket,button_wide_ball,button_no_ball,button_home,button_refresh,button_extra;    
     public int runs=0,wickets=0,balls=0,extras=0,overs,overlimit,session,daycount;
     
@@ -87,25 +86,25 @@ public class Cricket_Mode extends Frame_Setup
     
     public void setTextFields()
     {
-        runs_textfield = new JTextArea("Run");
-        runs_textfield.setFont(new Font("Courier New",Font.BOLD,30));
-        runs_textfield.setEditable(false);
-        textfield_panel.add(runs_textfield);
+        runs_textarea = new JTextArea("Run");
+        runs_textarea.setFont(new Font("Courier New",Font.BOLD,30));
+        runs_textarea.setEditable(false);
+        textfield_panel.add(runs_textarea);
         
-        wickets_textfield = new JTextArea("W");
-        wickets_textfield.setFont(new Font("Courier New",Font.BOLD,30));
-        wickets_textfield.setEditable(false);
-        textfield_panel.add(wickets_textfield);
+        wickets_textarea = new JTextArea("W");
+        wickets_textarea.setFont(new Font("Courier New",Font.BOLD,30));
+        wickets_textarea.setEditable(false);
+        textfield_panel.add(wickets_textarea);
         
-        overs_textfield = new JTextArea("Over");
-        overs_textfield.setFont(new Font("Courier New",Font.BOLD,30));
-        overs_textfield.setEditable(false);
-        textfield_panel.add(overs_textfield);
+        overs_textarea = new JTextArea("Over");
+        overs_textarea.setFont(new Font("Courier New",Font.BOLD,30));
+        overs_textarea.setEditable(false);
+        textfield_panel.add(overs_textarea);
         
-        extra_textfiled = new JTextArea("Extra");
-        extra_textfiled.setFont(new Font("Courier New",Font.BOLD,28));
-        extra_textfiled.setEditable(false);
-        textfield_panel.add(extra_textfiled);
+        extra_textarea = new JTextArea("Extra");
+        extra_textarea.setFont(new Font("Courier New",Font.BOLD,28));
+        extra_textarea.setEditable(false);
+        textfield_panel.add(extra_textarea);
     }
     
     public void setButtons()
@@ -206,8 +205,8 @@ public class Cricket_Mode extends Frame_Setup
                {
                runs = runs + 0;
                balls = balls +1;
-               runs_textfield.setText(""+runs);
-               overs_textfield.setText((int)(balls/6)+"."+balls%6);
+               runs_textarea.setText(""+runs);
+               overs_textarea.setText((int)(balls/6)+"."+balls%6);
                }
                else
                {
@@ -227,8 +226,8 @@ public class Cricket_Mode extends Frame_Setup
                {
                runs = runs + 1;
                balls = balls +1;
-               runs_textfield.setText(""+runs);
-               overs_textfield.setText((int)(balls/6)+"."+balls%6);
+               runs_textarea.setText(""+runs);
+               overs_textarea.setText((int)(balls/6)+"."+balls%6);
                }
                else
                {
@@ -248,8 +247,8 @@ public class Cricket_Mode extends Frame_Setup
                {
                runs = runs + 2;
                balls = balls +1;
-               runs_textfield.setText(""+runs);
-               overs_textfield.setText((int)(balls/6)+"."+balls%6);
+               runs_textarea.setText(""+runs);
+               overs_textarea.setText((int)(balls/6)+"."+balls%6);
                }
                else
                {
@@ -269,8 +268,8 @@ public class Cricket_Mode extends Frame_Setup
                {
                runs = runs + 3;
                balls = balls +1;
-               runs_textfield.setText(""+runs);
-               overs_textfield.setText((int)(balls/6)+"."+balls%6);
+               runs_textarea.setText(""+runs);
+               overs_textarea.setText((int)(balls/6)+"."+balls%6);
                }
                else
                {
@@ -290,8 +289,8 @@ public class Cricket_Mode extends Frame_Setup
                {
                runs = runs + 4;
                balls = balls +1;
-               runs_textfield.setText(""+runs);
-               overs_textfield.setText((int)(balls/6)+"."+balls%6);
+               runs_textarea.setText(""+runs);
+               overs_textarea.setText((int)(balls/6)+"."+balls%6);
                }
                else
                {
@@ -311,8 +310,8 @@ public class Cricket_Mode extends Frame_Setup
                {
                runs = runs + 6;
                balls = balls +1;
-               runs_textfield.setText(""+runs);
-               overs_textfield.setText((int)(balls/6)+"."+balls%6);
+               runs_textarea.setText(""+runs);
+               overs_textarea.setText((int)(balls/6)+"."+balls%6);
                }
                else
                {
@@ -334,14 +333,14 @@ public class Cricket_Mode extends Frame_Setup
                     {
                       wickets = wickets + 1;
                       balls = balls +1;
-                      wickets_textfield.setText(""+wickets);
-                      overs_textfield.setText((int)(balls/6)+"."+balls%6);
+                      wickets_textarea.setText("/"+wickets);
+                      overs_textarea.setText((int)(balls/6)+"."+balls%6);
                     }
                     else
                     {
-                     wickets_textfield.setText(""+(wickets+1));
+                     wickets_textarea.setText("/"+(wickets+1));
                      balls = balls +1;
-                     overs_textfield.setText((int)(balls/6)+" . "+balls%6); 
+                     overs_textarea.setText((int)(balls/6)+"."+balls%6); 
                      JOptionPane.showMessageDialog(null, "NO MORE BATSMAN LEFT","ERROR",JOptionPane.ERROR_MESSAGE);
                      All_Disable();
                     }
@@ -365,7 +364,7 @@ public class Cricket_Mode extends Frame_Setup
                     try{
                     int temp = Integer.valueOf(JOptionPane.showInputDialog(null, "Extra Runs On That Ball"));
                     runs = runs + 1 + temp;
-                    runs_textfield.setText(""+runs); }catch(Exception ex){}
+                    runs_textarea.setText(""+runs); }catch(Exception ex){}
               }
               else
               {
@@ -387,7 +386,7 @@ public class Cricket_Mode extends Frame_Setup
                 try{  
                 int temp = Integer.valueOf(JOptionPane.showInputDialog(null, "Extra Runs On That Ball"));
                 runs = runs + 1 + temp;
-                runs_textfield.setText(""+runs);   }catch(Exception ex){}
+                runs_textarea.setText(""+runs);   }catch(Exception ex){}
               }
               else
               {
@@ -412,9 +411,9 @@ public class Cricket_Mode extends Frame_Setup
                 button_no_ball.setEnabled(true);
                 button_wicket.setEnabled(true);
                 runs=0;wickets=0;balls=0;
-                runs_textfield.setText(""+runs);
-                wickets_textfield.setText(""+wickets);
-                overs_textfield.setText((int)(balls/6)+" . "+balls%6);              
+                runs_textarea.setText(""+runs);
+                wickets_textarea.setText("/"+wickets);
+                overs_textarea.setText((int)(balls/6)+"."+balls%6);              
             }
         });
     }
