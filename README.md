@@ -5,6 +5,9 @@ score and we can easily enjoy the game infront og us in a smart way.
 
 ## Features
  * Simple Mathematical Operations
+ * Cricket Score Calculation
+ 
+## Advanced Features
  * Cricket Score of One Day, T20 and Test Matches 
  * Run Rate changes at every ball
  * Powerplay 1,2,3 in ODI and T20 Matches
